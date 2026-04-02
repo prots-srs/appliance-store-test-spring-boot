@@ -1,4 +1,16 @@
 package com.epam.rd.autocode.assessment.appliances.model;
 
-public class Employee{
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Table(name = "employee")
+@Setter
+@Getter
+@EqualsAndHashCode(callSuper = true)
+public class Employee extends User {
+  private String department;
 }
