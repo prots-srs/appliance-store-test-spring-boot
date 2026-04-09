@@ -24,6 +24,8 @@ spring:
   sql:
     init:
       data-locations: classpath:manufacturer.sql, classpath:client.sql, classpath:employee.sql, classpath:appliance.sql
+  messages:
+    basename: messages/messages
 logging:
   level:
     "[com.epam.rd.autotasks.springemployeecatalog]": "debug"

@@ -1,0 +1,42 @@
+<div th:fragment="pagination"
+     th:remove="tag">
+  <nav aria-label="#{data.pagination.label.area}">
+    <ul class="pagination">
+      <li class="page-item first"
+          th:if="${data.pagination.currentPage > 1}">
+        <a class="page-link"
+           th:href="@{{link}(link=${currentPage})}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+      </li>
+      <li class="page-item prev"
+          th:if="${data.pagination.currentPage > 1}">
+        <a class="page-link"
+           th:href="@{{link}?page={page}(page = ${data.pagination.currentPage - 1}, link=${currentPage})}"><i
+             class="tf-icon bx bx-chevron-left"></i></a>
+      </li>
+
+      <li th:class="'page-item' + (${data.pagination.currentPage == i} ? ' active' : '')"
+          th:each="i: ${#numbers.sequence(1, data.pagination.totalPages)}">
+        <a th:if="${data.pagination.currentPage != i}"
+           class="page-link"
+           th:href="@{{link}?page={page}(link = ${currentPage}, page = ${i})}">[[${i}]]</a>
+        <a th:unless="${data.pagination.currentPage != i}"
+           class="page-link"
+           href="javascript:void(0);">[[${i}]]</a>
+      </li>
+
+      <li class="page-item next"
+          th:if="${data.pagination.currentPage < data.pagination.totalPages}">
+        <a class="page-link"
+           th:href="@{{link}?page={page}(link = ${currentPage}, page = ${data.pagination.currentPage + 1})}"><i
+             class="tf-icon bx bx-chevron-right"></i></a>
+      </li>
+      <li class="page-item last"
+          th:if="${data.pagination.currentPage < data.pagination.totalPages}">
+        <a class="page-link"
+           th:href="@{{link}?page={page}(link = ${currentPage}, page = ${data.pagination.totalPages})}"><i
+             class="tf-icon bx bx-chevrons-right"></i></a>
+      </li>
+    </ul>
+  </nav>
+  [[#{pagination.label.total(${data.pagination.pageSize}, ${data.pagination.totalElements})}]]
+</div>

@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
 import org.springframework.web.servlet.LocaleResolver;
 
 @Configuration
@@ -47,17 +47,16 @@ public class MainConfig implements WebMvcConfigurer {
   // registry.addViewController("/login").setViewName("login");
   // }
 
-  // @Override
-  // public void addResourceHandlers(ResourceHandlerRegistry registry) {
-  // if (registry == null) {
-  // throw new IllegalArgumentException("ResourceHandlerRegistry must not be
-  // null");
-  // }
-  // // registry
-  // // .setCacheControl(CacheControl.maxAge(Duration.ofDays(365)));
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    if (registry == null) {
+      throw new IllegalArgumentException("ResourceHandlerRegistry must not be null");
+    }
+    // registry
+    // .setCacheControl(CacheControl.maxAge(Duration.ofDays(365)));
 
-  // registry.addResourceHandler("/panel-assets/**")
-  // .addResourceLocations("classpath:/static/panel-assets/");
-  // registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath:/static/");
-  // }
+    registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
+    registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/static/fonts/");
+    registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath:/static/");
+  }
 }

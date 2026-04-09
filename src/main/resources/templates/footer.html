@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <body>
 
-    <footer th:fragment="footer" class="footer fixed-bottom text-center">
-        <div>
-            <span class="text-center">© 2024 EPAM Test project</span>
-        </div>
-    </footer>
+  <footer th:fragment="footer"
+          class="footer fixed-bottom text-center">
+    <div>
+      <span class="text-center"
+            th:text="#{©_2026_epam_test_pro}">© 2026 EPAM Test project</span>
+    </div>
+  </footer>
 </body>
+
 </html>
