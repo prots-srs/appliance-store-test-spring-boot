@@ -19,86 +19,92 @@
 
 <body>
   <div th:insert="~{panel/components/menunavy::navy}"></div>
-  <h1 th:text="#{btn.new}"
-      th:if="${data.isNew != null and data.isNew}"></h1>
-  <h1 th:text="#{btn.edit}"
-      th:if="${data.isNew != null and !data.isNew}"></h1>
-  <form th:action="@{${action}}"
-        method="post">
-    <input type="hidden"
-           th:name="${_csrf.parameterName}"
-           th:value="${_csrf.token}" />
-    <label th:text="#{form.label.name}"
-           for="input-name"></label>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 th:text="#{btn.new}"
+            th:if="${data.isNew != null and data.isNew}"></h1>
+        <h1 th:text="#{btn.edit}"
+            th:if="${data.isNew != null and !data.isNew}"></h1>
+        <form th:action="@{${action}}"
+              method="post">
+          <input type="hidden"
+                 th:name="${_csrf.parameterName}"
+                 th:value="${_csrf.token}" />
+          <label th:text="#{form.label.name}"
+                 for="input-name"></label>
 
-    <input type="text"
-           name="name"
-           class="form-control"
-           th:value="${data.values.name}"
-           th:classappend="${data.errors.name != null and data.errors.name != ''} ? ' is-invalid' : ''"
-           id="input-name"
-           required
-           th:placeholder="#{form.label.name}" />
-    <div th:if="${data.errors.name != null and data.errors.name != ''}"
-         class="invalid-feedback"
-         th:text="${data.errors.name}"></div>
+          <input type="text"
+                 name="name"
+                 class="form-control"
+                 th:value="${data.values.name}"
+                 th:classappend="${data.errors.name != null and data.errors.name != ''} ? ' is-invalid' : ''"
+                 id="input-name"
+                 required
+                 th:placeholder="#{form.label.name}" />
+          <div th:if="${data.errors.name != null and data.errors.name != ''}"
+               class="invalid-feedback"
+               th:text="${data.errors.name}"></div>
 
-    <label th:text="#{form.label.email}"
-           for="input-email"></label>
+          <label th:text="#{form.label.email}"
+                 for="input-email"></label>
 
-    <input type="email"
-           name="email"
-           class="form-control"
-           th:value="${data.values.email}"
-           th:classappend="${data.errors.email != null and data.errors.email != ''} ? ' is-invalid' : ''"
-           id="input-email"
-           required
-           th:placeholder="#{form.label.email}" />
-    <div th:if="${data.errors.email != null and data.errors.email != ''}"
-         class="invalid-feedback"
-         th:text="${data.errors.email}"></div>
+          <input type="email"
+                 name="email"
+                 class="form-control"
+                 th:value="${data.values.email}"
+                 th:classappend="${data.errors.email != null and data.errors.email != ''} ? ' is-invalid' : ''"
+                 id="input-email"
+                 required
+                 th:placeholder="#{form.label.email}" />
+          <div th:if="${data.errors.email != null and data.errors.email != ''}"
+               class="invalid-feedback"
+               th:text="${data.errors.email}"></div>
 
-    <label th:text="#{form.label.password}"
-           for="input-password"></label>
+          <label th:text="#{form.label.password}"
+                 for="input-password"></label>
 
-    <input type="password"
-           name="password"
-           class="form-control"
-           th:value="${data.values.password}"
-           th:classappend="${data.errors.password != null and data.errors.password != ''} ? ' is-invalid' : ''"
-           id="input-password"
-           th:placeholder="#{form.label.password}" />
-    <div th:if="${data.errors.password != null and data.errors.password != ''}"
-         class="invalid-feedback"
-         th:text="${data.errors.password}"></div>
+          <input type="password"
+                 name="password"
+                 class="form-control"
+                 th:value="${data.values.password}"
+                 th:classappend="${data.errors.password != null and data.errors.password != ''} ? ' is-invalid' : ''"
+                 id="input-password"
+                 th:placeholder="#{form.label.password}" />
+          <div th:if="${data.errors.password != null and data.errors.password != ''}"
+               class="invalid-feedback"
+               th:text="${data.errors.password}"></div>
 
-    <label th:text="#{form.label.department}"
-           for="input-department"></label>
+          <label th:text="#{form.label.department}"
+                 for="input-department"></label>
 
-    <input type="text"
-           name="department"
-           class="form-control"
-           th:value="${data.values.department}"
-           th:classappend="${data.errors.department != null and data.errors.department != ''} ? ' is-invalid' : ''"
-           id="input-department"
-           required
-           th:placeholder="#{form.label.department}" />
-    <div th:if="${data.errors.department != null and data.errors.department != ''}"
-         class="invalid-feedback"
-         th:text="${data.errors.department}"></div>
+          <input type="text"
+                 name="department"
+                 class="form-control"
+                 th:value="${data.values.department}"
+                 th:classappend="${data.errors.department != null and data.errors.department != ''} ? ' is-invalid' : ''"
+                 id="input-department"
+                 required
+                 th:placeholder="#{form.label.department}" />
+          <div th:if="${data.errors.department != null and data.errors.department != ''}"
+               class="invalid-feedback"
+               th:text="${data.errors.department}"></div>
 
-    <div class="btn-group">
-      <button type="submit"
-              th:if="${data.isNew != null and data.isNew}"
-              class="btn btn-primary">[[#{btn.new}]]</button>
-      <button type="submit"
-              th:if="${data.isNew != null and !data.isNew}"
-              class="btn btn-primary">[[#{btn.edit}]]</button>
-      <input type="reset"
-             class="btn btn-secondary"
-             value="Reset" />
+          <div class="btn-group">
+            <button type="submit"
+                    th:if="${data.isNew != null and data.isNew}"
+                    class="btn btn-primary">[[#{btn.new}]]</button>
+            <button type="submit"
+                    th:if="${data.isNew != null and !data.isNew}"
+                    class="btn btn-primary">[[#{btn.edit}]]</button>
+            <input type="reset"
+                   class="btn btn-secondary"
+                   value="Reset" />
+          </div>
+        </form>
+      </div>
     </div>
-  </form>
+  </div>
   <div th:insert="~{footer::footer}"></div>
 </body>
 

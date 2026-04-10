@@ -186,6 +186,14 @@ public class ApplianceServiceImpl implements PanelService<ApplianceViewDto, Appl
     values.keySet().forEach(fieldName -> {
       values.put(fieldName, switch (fieldName) {
         case "name" -> result.name();
+        case "category" -> result.category().toString();
+        case "model" -> result.model();
+        case "powerType" -> result.powerType().toString();
+        case "manufacturer" -> result.manufacturer().toString();
+        case "characteristic" -> result.characteristic();
+        case "description" -> result.description();
+        case "power" -> result.power().toString();
+        case "price" -> result.power().toString();
         default -> "";
       });
     });
@@ -200,6 +208,14 @@ public class ApplianceServiceImpl implements PanelService<ApplianceViewDto, Appl
     values.keySet().stream().forEach(fieldName -> {
       values.put(fieldName, switch (fieldName) {
         case "name" -> entity.getName();
+        case "category" -> entity.getCategory().toString();
+        case "model" -> entity.getModel();
+        case "powerType" -> entity.getPowerType().toString();
+        case "manufacturer" -> entity.getManufacturer().getId().toString();
+        case "characteristic" -> entity.getCharacteristic();
+        case "description" -> entity.getDescription();
+        case "power" -> entity.getPower().toString();
+        case "price" -> entity.getPrice().toString();
         default -> "";
       });
     });

@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.epam.rd.autocode.assessment.appliances.model.Manufacturer;
 import com.epam.rd.autocode.assessment.appliances.repository.ManufacturerRepository;
+import org.springframework.data.domain.Sort;
 
 @SpringBootTest
 public class TestManufacturerRepo {
@@ -20,13 +21,15 @@ public class TestManufacturerRepo {
   private ManufacturerRepository repo;
 
   @Test
-  void test_fetch_all() {
-    List<Manufacturer> m = repo.findAll();
+  void testFetchAll() {
+    Sort sort = Sort.by("name").ascending();
+    List<Manufacturer> m = repo.findAll(sort);
     assertEquals(m.size(), 7);
+    assertEquals(m.get(0).getName(), "AMD");
   }
 
   @Test
-  void test_fetch_by_id() {
+  void testFetchById() {
     long id = 2;
 
     Optional<Manufacturer> m = repo.findById(id);

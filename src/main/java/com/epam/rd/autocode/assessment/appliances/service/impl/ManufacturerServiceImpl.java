@@ -18,12 +18,14 @@ import com.epam.rd.autocode.assessment.appliances.formbuilder.FormValuesDto;
 import com.epam.rd.autocode.assessment.appliances.model.Manufacturer;
 import com.epam.rd.autocode.assessment.appliances.panel.PanelService;
 import com.epam.rd.autocode.assessment.appliances.panel.forms.results.ManufacturerFormResult;
+import com.epam.rd.autocode.assessment.appliances.panel.table.ApplianceViewDto;
 import com.epam.rd.autocode.assessment.appliances.panel.table.ManufacturerViewDto;
 import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationDto;
 import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationRequestDto;
 import com.epam.rd.autocode.assessment.appliances.panel.table.TableDto;
 import com.epam.rd.autocode.assessment.appliances.repository.ManufacturerRepository;
 
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -196,5 +198,15 @@ public class ManufacturerServiceImpl implements PanelService<ManufacturerViewDto
         default -> "";
       });
     });
+  }
+
+  public List<ManufacturerViewDto> getListForOptions(Sort sort) {
+    List<ManufacturerViewDto> result = new ArrayList<>();
+    if (sort != null) {
+      List<Manufacturer> list = repo.findAll(sort);
+      list.forEach(e -> result.add(ManufacturerViewDto.convertFromEntity(e)));
+    }
+
+    return result;
   }
 }

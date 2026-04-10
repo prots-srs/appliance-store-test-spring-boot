@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type"
+        content="text/html; charset=UTF-8" />
+  <!-- Latest compiled and minified CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="stylesheet"
+        th:href="@{/css/main.css}" />
+  <title th:text="#{compose.edit.appliance}"></title>
+</head>
+
+<body>
+  <div th:insert="~{panel/components/menunavy::navy}"></div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 th:text="#{btn.new}"
+            th:if="${data.isNew != null and data.isNew}"></h1>
+        <h1 th:text="#{btn.edit}"
+            th:if="${data.isNew != null and !data.isNew}"></h1>
+        <form th:action="@{${action}}"
+              method="post">
+          <input type="hidden"
+                 th:name="${_csrf.parameterName}"
+                 th:value="${_csrf.token}" />
+
+          <!-- name -->
+          <label th:text="#{form.label.name}"
+                 for="input-name"></label>
+          <input type="text"
+                 name="name"
+                 class="form-control"
+                 th:value="${data.values.name}"
+                 th:classappend="${data.errors.name != null and data.errors.name != ''} ? ' is-invalid' : ''"
+                 id="input-name"
+                 required
+                 th:placeholder="#{form.label.name}" />
+          <div th:if="${data.errors.name != null and data.errors.name != ''}"
+               class="invalid-feedback"
+               th:text="${data.errors.name}"></div>
+
+          <!-- category -->
+          <label th:text="#{form.label.category}"
+                 for="input-category"></label>
+          <select class="form-control"
+                  id="input-category"
+                  name="category"
+                  th:classappend="${data.errors.category != null and data.errors.category != ''} ? ' is-invalid' : ''">
+            <option th:each="category : ${categories}"
+                    th:value="${category}"
+                    th:selected="${data.values.category == category.name()}"
+                    th:text="${category}"></option>
+          </select>
+          <div th:if="${data.errors.category != null and data.errors.category != ''}"
+               class="invalid-feedback"
+               th:text="${data.errors.category}"></div>
+
+          <!-- model -->
+          <label th:text="#{form.label.model}"
+                 for="input-model"></label>
+          <input type="text"
+                 name="model"
+                 class="form-control"
+                 th:value="${data.values.model}"
+                 th:classappend="${data.errors.model != null and data.errors.model != ''} ? ' is-invalid' : ''"
+                 id="input-model"
+                 required
+                 th:placeholder="#{form.label.model}" />
+          <div th:if="${data.errors.model != null and data.errors.model != ''}"
+               class="invalid-feedback"
+               th:text="${data.errors.model}"></div>
+
+          <!-- powerType -->
+          <label th:text="#{form.label.powerType}"
+                 for="input-powerType"></label>
+          <select class="form-control"
+                  id="input-powerType"
+                  name="category"
+                  th:classappend="${data.errors.powerType != null and data.errors.powerType != ''} ? ' is-invalid' : ''">
+            <option th:each="powerType : ${powerTypes}"
+                    th:value="${powerType}"
+                    th:selected="${data.values.powerType == powerType.name()}"
+                    th:text="${powerType}"></option>
+          </select>
+          <div th:if="${data.errors.powerType != null and data.errors.powerType != ''}"
+               class="invalid-feedback"
+               th:text="${data.errors.powerType}"></div>
+
+          <!-- manufacturer -->
+          <label th:text="#{form.label.manufacturer}"
+                 for="input-manufacturer"></label>
+          <select class="form-control"
+                  id="input-manufacturer"
+                  name="category"
+                  th:classappend="${data.errors.manufacturer != null and data.errors.manufacturer != ''} ? ' is-invalid' : ''">
+            <option th:each="manufacturer : ${manufacturers}"
+                    th:value="${manufacturer.id}"
+                    th:selected="${data.values.manufacturer == manufacturer.id.toString()}"
+                    th:text="${manufacturer.name}"></option>
+          </select>
+          <div th:if="${data.errors.manufacturer != null and data.errors.manufacturer != ''}"
+               class="invalid-feedback"
+               th:text="${data.errors.manufacturer}"></div>
+
+          <!-- characteristic -->
+          <label th:text="#{form.label.characteristic}"
+                 for="input-characteristic"></label>
+          <input type="text"
+                 name="characteristic"
+                 class="form-control"
+                 th:value="${data.values.characteristic}"
+                 th:classappend="${data.errors.characteristic != null and data.errors.characteristic != ''} ? ' is-invalid' : ''"
+                 id="input-characteristic"
+                 required
+                 th:placeholder="#{form.label.characteristic}" />
+          <div th:if="${data.errors.characteristic != null and data.errors.characteristic != ''}"
+               class="invalid-feedback"
+               th:text="${data.errors.characteristic}"></div>
+
+          <!-- description -->
+          <label th:text="#{form.label.description}"
+                 for="input-description"></label>
+          <input type="text"
+                 name="description"
+                 class="form-control"
+                 th:value="${data.values.description}"
+                 th:classappend="${data.errors.description != null and data.errors.description != ''} ? ' is-invalid' : ''"
+                 id="input-description"
+                 required
+                 th:placeholder="#{form.label.description}" />
+          <div th:if="${data.errors.description != null and data.errors.description != ''}"
+               class="invalid-feedback"
+               th:text="${data.errors.description}"></div>
+
+          <!-- power -->
+          <label th:text="#{form.label.power}"
+                 for="input-power"></label>
+          <input type="number"
+                 name="power"
+                 class="form-control"
+                 th:value="${data.values.power}"
+                 th:classappend="${data.errors.power != null and data.errors.power != ''} ? ' is-invalid' : ''"
+                 id="input-power"
+                 required
+                 th:placeholder="#{form.label.power}" />
+          <div th:if="${data.errors.power != null and data.errors.power != ''}"
+               class="invalid-feedback"
+               th:text="${data.errors.power}"></div>
+
+          <!-- price -->
+          <label th:text="#{form.label.price}"
+                 for="input-price"></label>
+          <input type="number"
+                 name="price"
+                 class="form-control"
+                 th:value="${data.values.price}"
+                 th:classappend="${data.errors.price != null and data.errors.price != ''} ? ' is-invalid' : ''"
+                 id="input-price"
+                 required
+                 th:placeholder="#{form.label.price}" />
+          <div th:if="${data.errors.price != null and data.errors.price != ''}"
+               class="invalid-feedback"
+               th:text="${data.errors.price}"></div>
+
+          <!-- buttons -->
+
+          <div class="btn-group">
+            <button type="submit"
+                    th:if="${data.isNew != null and data.isNew}"
+                    class="btn btn-primary">[[#{btn.new}]]</button>
+            <button type="submit"
+                    th:if="${data.isNew != null and !data.isNew}"
+                    class="btn btn-primary">[[#{btn.edit}]]</button>
+            <input type="reset"
+                   class="btn btn-secondary"
+                   value="Reset" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div th:insert="~{footer::footer}"></div>
+</body>
+
+</html>
