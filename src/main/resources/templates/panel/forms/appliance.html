@@ -27,11 +27,16 @@
             th:if="${data.isNew != null and data.isNew}"></h1>
         <h1 th:text="#{btn.edit}"
             th:if="${data.isNew != null and !data.isNew}"></h1>
-        <form th:action="@{${action}}"
-              method="post">
-          <input type="hidden"
-                 th:name="${_csrf.parameterName}"
-                 th:value="${_csrf.token}" />
+      </div>
+    </div>
+    <form th:action="@{${action}}"
+          method="post">
+      <input type="hidden"
+             th:name="${_csrf.parameterName}"
+             th:value="${_csrf.token}" />
+
+      <div class="row">
+        <div class="col">
 
           <!-- name -->
           <label th:text="#{form.label.name}"
@@ -84,7 +89,7 @@
                  for="input-powerType"></label>
           <select class="form-control"
                   id="input-powerType"
-                  name="category"
+                  name="powerType"
                   th:classappend="${data.errors.powerType != null and data.errors.powerType != ''} ? ' is-invalid' : ''">
             <option th:each="powerType : ${powerTypes}"
                     th:value="${powerType}"
@@ -100,7 +105,7 @@
                  for="input-manufacturer"></label>
           <select class="form-control"
                   id="input-manufacturer"
-                  name="category"
+                  name="manufacturer"
                   th:classappend="${data.errors.manufacturer != null and data.errors.manufacturer != ''} ? ' is-invalid' : ''">
             <option th:each="manufacturer : ${manufacturers}"
                     th:value="${manufacturer.id}"
@@ -111,6 +116,8 @@
                class="invalid-feedback"
                th:text="${data.errors.manufacturer}"></div>
 
+        </div>
+        <div class="col">
           <!-- characteristic -->
           <label th:text="#{form.label.characteristic}"
                  for="input-characteristic"></label>
@@ -184,11 +191,10 @@
                    class="btn btn-secondary"
                    value="Reset" />
           </div>
-        </form>
-      </div>
-    </div>
+        </div>
+    </form>
   </div>
-  <div th:insert="~{footer::footer}"></div>
+  <div _th:insert="~{footer::footer}"></div>
 </body>
 
 </html>

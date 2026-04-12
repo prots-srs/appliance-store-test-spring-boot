@@ -1,8 +1,7 @@
-package com.epam.rd.autocode.assessment.appliances.controller;
+package com.epam.rd.autocode.assessment.appliances.panel.controllers;
 
 import java.util.Map;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,31 +15,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.epam.rd.autocode.assessment.appliances.model.Category;
-import com.epam.rd.autocode.assessment.appliances.model.PowerType;
 import com.epam.rd.autocode.assessment.appliances.panel.PanelController;
-import com.epam.rd.autocode.assessment.appliances.panel.forms.results.ApplianceFormResult;
+import com.epam.rd.autocode.assessment.appliances.panel.forms.results.EmployeeFormResult;
 import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationRequestDto;
-import com.epam.rd.autocode.assessment.appliances.service.impl.ApplianceServiceImpl;
-import com.epam.rd.autocode.assessment.appliances.service.impl.ManufacturerServiceImpl;
+import com.epam.rd.autocode.assessment.appliances.service.impl.EmployeeServiceImpl;
 
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/panel/appliances")
-public class ApplianceController implements PanelController<ApplianceFormResult> {
+@RequestMapping("/panel/employees")
+public class EmployeeController implements PanelController<EmployeeFormResult> {
 
   private final String DEFAULT_PAGE = "1";
   private final String DEFAULT_SIZE = "5";
-  private final String DEFAULT_PATH = "/panel/appliances";
+  private final String DEFAULT_PATH = "/panel/employees";
 
-  private ApplianceServiceImpl service;
-  private ManufacturerServiceImpl manufacturerService;
+  private EmployeeServiceImpl service;
 
-  public ApplianceController(ApplianceServiceImpl service,
-      ManufacturerServiceImpl manufacturerService) {
+  public EmployeeController(EmployeeServiceImpl service) {
     this.service = service;
-    this.manufacturerService = manufacturerService;
   }
 
   @ModelAttribute
@@ -58,7 +51,7 @@ public class ApplianceController implements PanelController<ApplianceFormResult>
       Model model) {
 
     model.addAttribute("data", service.getTable(new PaginationRequestDto(page, size, sort)));
-    return "panel/pages/appliances";
+    return "panel/pages/employees";
   }
 
   @Override
@@ -92,14 +85,12 @@ public class ApplianceController implements PanelController<ApplianceFormResult>
     model.addAttribute("data", form);
     model.addAttribute("action", DEFAULT_PATH + "/create");
 
-    utilForm(model);
-
-    return "panel/forms/appliance";
+    return "panel/forms/employee";
   }
 
   @Override
   @PostMapping("/create")
-  public String processCreate(final @Valid @ModelAttribute("item") ApplianceFormResult item, BindingResult result,
+  public String processCreate(final @Valid @ModelAttribute("item") EmployeeFormResult item, BindingResult result,
       Model model) {
 
     if (result.hasErrors()) {
@@ -109,9 +100,7 @@ public class ApplianceController implements PanelController<ApplianceFormResult>
       model.addAttribute("data", service.getForm(null, item, result.getFieldErrors()));
       model.addAttribute("action", DEFAULT_PATH + "/create");
 
-      utilForm(model);
-
-      return "panel/forms/appliance";
+      return "panel/forms/employee";
     }
 
     // Saving
@@ -133,15 +122,12 @@ public class ApplianceController implements PanelController<ApplianceFormResult>
     model.addAttribute("data", form);
     model.addAttribute("action", DEFAULT_PATH + "/" + id + "/edit");
 
-    utilForm(model);
-
-    return "panel/forms/appliance";
+    return "panel/forms/employee";
   }
 
   @Override
   @PostMapping("/{id}/edit")
-  public String processUpdate(final @Valid @ModelAttribute("item") ApplianceFormResult item,
-      BindingResult result,
+  public String processUpdate(final @Valid @ModelAttribute("item") EmployeeFormResult item, BindingResult result,
       @PathVariable("id") Long id,
       Model model) {
 
@@ -152,22 +138,13 @@ public class ApplianceController implements PanelController<ApplianceFormResult>
       model.addAttribute("data", service.getForm(id, item, result.getFieldErrors()));
       model.addAttribute("action", DEFAULT_PATH + "/" + id + "/edit");
 
-      utilForm(model);
-
-      return "panel/forms/appliance";
+      return "panel/forms/employee";
 
     }
 
     service.update(id, item);
-
     return "redirect:" + DEFAULT_PATH + "/{id}/edit";
 
   }
 
-  private void utilForm(Model model) {
-    model.addAttribute("categories", Category.values());
-    model.addAttribute("powerTypes", PowerType.values());
-
-    model.addAttribute("manufacturers", manufacturerService.getListForOptions(Sort.by("name").ascending()));
-  }
 }

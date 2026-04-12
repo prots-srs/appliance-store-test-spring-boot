@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet"
+        th:href="@{/css/main.css}" />
+  <link rel="stylesheet"
+        th:href="@{/fonts/boxicons.css}" />
+
+  <!-- Latest compiled and minified CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <title th:text="#{mainpage.title}"></title>
+
+</head>
+
+<body>
+  <header>
+    <div th:insert="~{web/components/menunavy::navy}"></div>
+  </header>
+
+  <div class="container mt-3">
+    <div class="card-list">
+
+      <div class="card"
+           style="width: 18rem;"
+           th:each="appliance: ${data.list}">
+        <div class="card-body">
+          <h5 class="card-title">
+            [[${appliance.name}]] <small>[[${appliance.model}]]</small>
+          </h5>
+          <h6 class="card-subtitle mb-2 text-muted"
+              th:text="${appliance.manufacturerName}"></h6>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            [[#{form.label.category}]]: [[${appliance.category}]]<br>
+            [[#{form.label.powerType}]]: [[${appliance.powerType}]]<br>
+            [[#{form.label.power}]]: [[${appliance.power}]]
+          </li>
+          <li class="list-group-item">
+            [[#{form.label.characteristic}]]: [[${appliance.characteristic}]]<br>
+            [[#{form.label.description}]]: [[${appliance.description}]]
+          </li>
+        </ul>
+        <div class="card-body">
+          <div class="row justify-content-between">
+            <div class="col">
+
+              <p class="card-text"
+                 th:text="${appliance.price}"></p>
+            </div>
+            <div class="col text-end">
+              <button type="button"
+                      class="btn btn-success btn-sm"
+                      th:text="#{btn.order}"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div th:if="${data.pagination.totalPages > 1}"
+         class="m-4">
+      <div class="row">
+        <div th:replace="~{web/components/pagination::pagination}">
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div th:insert="~{footer::footer}"></div>
+</body>
+
+</html>

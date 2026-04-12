@@ -1,4 +1,4 @@
-package com.epam.rd.autocode.assessment.appliances.controller;
+package com.epam.rd.autocode.assessment.appliances.panel.controllers;
 
 import java.util.Map;
 
@@ -16,24 +16,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.epam.rd.autocode.assessment.appliances.panel.PanelController;
-import com.epam.rd.autocode.assessment.appliances.panel.forms.results.EmployeeFormResult;
+import com.epam.rd.autocode.assessment.appliances.panel.forms.results.ManufacturerFormResult;
 import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationRequestDto;
-import com.epam.rd.autocode.assessment.appliances.service.impl.EmployeeServiceImpl;
+import com.epam.rd.autocode.assessment.appliances.service.impl.ManufacturerServiceImpl;
 
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/panel/employees")
-public class EmployeeController implements PanelController<EmployeeFormResult> {
+@RequestMapping("/panel/manufacturers")
+public class ManufacturerController implements PanelController<ManufacturerFormResult> {
 
   private final String DEFAULT_PAGE = "1";
   private final String DEFAULT_SIZE = "5";
-  private final String DEFAULT_PATH = "/panel/employees";
+  private final String DEFAULT_PATH = "/panel/manufacturers";
 
-  private EmployeeServiceImpl service;
+  private ManufacturerServiceImpl service;
 
-  public EmployeeController(EmployeeServiceImpl service) {
-    this.service = service;
+  public ManufacturerController(ManufacturerServiceImpl manufacturerService) {
+    this.service = manufacturerService;
   }
 
   @ModelAttribute
@@ -51,7 +51,7 @@ public class EmployeeController implements PanelController<EmployeeFormResult> {
       Model model) {
 
     model.addAttribute("data", service.getTable(new PaginationRequestDto(page, size, sort)));
-    return "panel/pages/employees";
+    return "panel/pages/manufacturers";
   }
 
   @Override
@@ -85,12 +85,12 @@ public class EmployeeController implements PanelController<EmployeeFormResult> {
     model.addAttribute("data", form);
     model.addAttribute("action", DEFAULT_PATH + "/create");
 
-    return "panel/forms/employee";
+    return "panel/forms/manufacture";
   }
 
   @Override
   @PostMapping("/create")
-  public String processCreate(final @Valid @ModelAttribute("item") EmployeeFormResult item, BindingResult result,
+  public String processCreate(final @Valid @ModelAttribute("item") ManufacturerFormResult item, BindingResult result,
       Model model) {
 
     if (result.hasErrors()) {
@@ -100,7 +100,7 @@ public class EmployeeController implements PanelController<EmployeeFormResult> {
       model.addAttribute("data", service.getForm(null, item, result.getFieldErrors()));
       model.addAttribute("action", DEFAULT_PATH + "/create");
 
-      return "panel/forms/employee";
+      return "panel/forms/manufacture";
     }
 
     // Saving
@@ -122,12 +122,12 @@ public class EmployeeController implements PanelController<EmployeeFormResult> {
     model.addAttribute("data", form);
     model.addAttribute("action", DEFAULT_PATH + "/" + id + "/edit");
 
-    return "panel/forms/employee";
+    return "panel/forms/manufacture";
   }
 
   @Override
   @PostMapping("/{id}/edit")
-  public String processUpdate(final @Valid @ModelAttribute("item") EmployeeFormResult item, BindingResult result,
+  public String processUpdate(final @Valid @ModelAttribute("item") ManufacturerFormResult item, BindingResult result,
       @PathVariable("id") Long id,
       Model model) {
 
@@ -138,7 +138,7 @@ public class EmployeeController implements PanelController<EmployeeFormResult> {
       model.addAttribute("data", service.getForm(id, item, result.getFieldErrors()));
       model.addAttribute("action", DEFAULT_PATH + "/" + id + "/edit");
 
-      return "panel/forms/employee";
+      return "panel/forms/manufacture";
 
     }
 

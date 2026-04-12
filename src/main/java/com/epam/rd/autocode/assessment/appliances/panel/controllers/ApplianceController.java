@@ -1,7 +1,8 @@
-package com.epam.rd.autocode.assessment.appliances.controller;
+package com.epam.rd.autocode.assessment.appliances.panel.controllers;
 
 import java.util.Map;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,25 +16,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.epam.rd.autocode.assessment.appliances.formbuilder.FormValuesDto;
+import com.epam.rd.autocode.assessment.appliances.model.Category;
+import com.epam.rd.autocode.assessment.appliances.model.PowerType;
 import com.epam.rd.autocode.assessment.appliances.panel.PanelController;
-import com.epam.rd.autocode.assessment.appliances.panel.forms.results.ManufacturerFormResult;
+import com.epam.rd.autocode.assessment.appliances.panel.forms.results.ApplianceFormResult;
 import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationRequestDto;
+import com.epam.rd.autocode.assessment.appliances.service.impl.ApplianceServiceImpl;
 import com.epam.rd.autocode.assessment.appliances.service.impl.ManufacturerServiceImpl;
 
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/panel/manufacturers")
-public class ManufacturerController implements PanelController<ManufacturerFormResult> {
+@RequestMapping("/panel/appliances")
+public class ApplianceController implements PanelController<ApplianceFormResult> {
 
   private final String DEFAULT_PAGE = "1";
   private final String DEFAULT_SIZE = "5";
-  private final String DEFAULT_PATH = "/panel/manufacturers";
+  private final String DEFAULT_PATH = "/panel/appliances";
 
-  private ManufacturerServiceImpl service;
+  private ApplianceServiceImpl service;
+  private ManufacturerServiceImpl manufacturerService;
 
-  public ManufacturerController(ManufacturerServiceImpl manufacturerService) {
-    this.service = manufacturerService;
+  public ApplianceController(ApplianceServiceImpl service,
+      ManufacturerServiceImpl manufacturerService) {
+    this.service = service;
+    this.manufacturerService = manufacturerService;
   }
 
   @ModelAttribute
@@ -51,7 +59,7 @@ public class ManufacturerController implements PanelController<ManufacturerFormR
       Model model) {
 
     model.addAttribute("data", service.getTable(new PaginationRequestDto(page, size, sort)));
-    return "panel/pages/manufacturers";
+    return "panel/pages/appliances";
   }
 
   @Override
@@ -85,13 +93,17 @@ public class ManufacturerController implements PanelController<ManufacturerFormR
     model.addAttribute("data", form);
     model.addAttribute("action", DEFAULT_PATH + "/create");
 
-    return "panel/forms/manufacture";
+    utilForm(model);
+
+    return "panel/forms/appliance";
   }
 
   @Override
   @PostMapping("/create")
-  public String processCreate(final @Valid @ModelAttribute("item") ManufacturerFormResult item, BindingResult result,
+  public String processCreate(final @Valid @ModelAttribute("item") ApplianceFormResult item, BindingResult result,
       Model model) {
+
+    // System.out.println("item create:" + item);
 
     if (result.hasErrors()) {
 
@@ -100,7 +112,9 @@ public class ManufacturerController implements PanelController<ManufacturerFormR
       model.addAttribute("data", service.getForm(null, item, result.getFieldErrors()));
       model.addAttribute("action", DEFAULT_PATH + "/create");
 
-      return "panel/forms/manufacture";
+      utilForm(model);
+
+      return "panel/forms/appliance";
     }
 
     // Saving
@@ -117,34 +131,50 @@ public class ManufacturerController implements PanelController<ManufacturerFormR
   public String update(@PathVariable Long id, Model model) {
 
     var form = service.getForm(id, null, null);
-    System.out.println("form:" + form);
+    // System.out.println("form:" + form);
 
     model.addAttribute("data", form);
     model.addAttribute("action", DEFAULT_PATH + "/" + id + "/edit");
 
-    return "panel/forms/manufacture";
+    utilForm(model);
+
+    return "panel/forms/appliance";
   }
 
   @Override
   @PostMapping("/{id}/edit")
-  public String processUpdate(final @Valid @ModelAttribute("item") ManufacturerFormResult item, BindingResult result,
+  public String processUpdate(final @Valid @ModelAttribute("item") ApplianceFormResult item,
+      BindingResult result,
       @PathVariable("id") Long id,
       Model model) {
 
+    // System.out.println("item update:" + item);
     if (result.hasErrors()) {
 
       // model.addAttribute("warning", result.getAllErrors());
 
-      model.addAttribute("data", service.getForm(id, item, result.getFieldErrors()));
+      FormValuesDto formResult = service.getForm(id, item, result.getFieldErrors());
+      model.addAttribute("data", formResult);
       model.addAttribute("action", DEFAULT_PATH + "/" + id + "/edit");
 
-      return "panel/forms/manufacture";
+      // System.out.println("formResult:" + formResult);
+
+      utilForm(model);
+
+      return "panel/forms/appliance";
 
     }
 
     service.update(id, item);
+
     return "redirect:" + DEFAULT_PATH + "/{id}/edit";
 
   }
 
+  private void utilForm(Model model) {
+    model.addAttribute("categories", Category.values());
+    model.addAttribute("powerTypes", PowerType.values());
+
+    model.addAttribute("manufacturers", manufacturerService.getListForOptions(Sort.by("name").ascending()));
+  }
 }

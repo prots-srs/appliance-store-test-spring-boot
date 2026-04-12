@@ -1,6 +1,7 @@
 package com.epam.rd.autocode.assessment.appliances.service.impl;
 
 import java.lang.reflect.RecordComponent;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,6 +18,8 @@ import com.epam.rd.autocode.assessment.appliances.exceptions.InvalidParameterExc
 import com.epam.rd.autocode.assessment.appliances.formbuilder.FormUtility;
 import com.epam.rd.autocode.assessment.appliances.formbuilder.FormValuesDto;
 import com.epam.rd.autocode.assessment.appliances.model.Appliance;
+import com.epam.rd.autocode.assessment.appliances.model.Manufacturer;
+import com.epam.rd.autocode.assessment.appliances.model.OrderRow;
 import com.epam.rd.autocode.assessment.appliances.panel.PanelService;
 import com.epam.rd.autocode.assessment.appliances.panel.forms.results.ApplianceFormResult;
 import com.epam.rd.autocode.assessment.appliances.panel.table.ApplianceViewDto;
@@ -24,6 +27,7 @@ import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationDto;
 import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationRequestDto;
 import com.epam.rd.autocode.assessment.appliances.panel.table.TableDto;
 import com.epam.rd.autocode.assessment.appliances.repository.ApplianceRepository;
+import com.epam.rd.autocode.assessment.appliances.repository.ManufacturerRepository;
 
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
@@ -36,10 +40,13 @@ public class ApplianceServiceImpl implements PanelService<ApplianceViewDto, Appl
 
   private ApplianceRepository repo;
   private Locale locale;
+  private ManufacturerRepository manufacturerRepo;
 
-  public ApplianceServiceImpl(ApplianceRepository repo) {
+  public ApplianceServiceImpl(ApplianceRepository repo,
+      ManufacturerRepository manufacturerRepo) {
     this.repo = repo;
     locale = LocaleContextHolder.getLocale();
+    this.manufacturerRepo = manufacturerRepo;
   }
 
   @Override
@@ -73,7 +80,7 @@ public class ApplianceServiceImpl implements PanelService<ApplianceViewDto, Appl
     return getFormUtility(item, getEntity(id), fieldErrors);
   }
 
-  private Appliance getEntity(Long id) {
+  public Appliance getEntity(Long id) {
 
     Appliance entity = null;
     if (id != null && id > 0) {
@@ -107,9 +114,20 @@ public class ApplianceServiceImpl implements PanelService<ApplianceViewDto, Appl
   private Appliance createEntity(ApplianceFormResult item) {
     Appliance entity = new Appliance();
     entity.setName(item.name() != null ? item.name() : "");
-    // entity.setEmail(item.email() != null ? item.email() : "");
-    // entity.setPassword(item.password() != null ? item.password() : "");
-    // entity.setDepartment(item.department() != null ? item.department() : "");
+    entity.setCategory(item.category() != null ? item.category() : null);
+    entity.setModel(item.model() != null ? item.model() : "");
+
+    if (item.manufacturer() != null) {
+      Manufacturer manufacturerEntity = manufacturerRepo.getReferenceById(item.manufacturer());
+      entity.setManufacturer(manufacturerEntity);
+    }
+
+    entity.setPowerType(item.powerType() != null ? item.powerType() : null);
+    entity.setCharacteristic(item.characteristic() != null ? item.characteristic() : "");
+    entity.setDescription(item.description() != null ? item.description() : "");
+    entity.setPower(item.power() != null ? item.power() : 0);
+    entity.setPrice(item.price() != null ? item.price() : BigDecimal.valueOf(0.0));
+
     return entity;
   }
 
@@ -186,14 +204,14 @@ public class ApplianceServiceImpl implements PanelService<ApplianceViewDto, Appl
     values.keySet().forEach(fieldName -> {
       values.put(fieldName, switch (fieldName) {
         case "name" -> result.name();
-        case "category" -> result.category().toString();
+        case "category" -> result.category() != null ? result.category().toString() : "";
         case "model" -> result.model();
-        case "powerType" -> result.powerType().toString();
-        case "manufacturer" -> result.manufacturer().toString();
+        case "powerType" -> result.powerType() != null ? result.powerType().toString() : "";
+        case "manufacturer" -> result.manufacturer() != null ? result.manufacturer().toString() : "";
         case "characteristic" -> result.characteristic();
         case "description" -> result.description();
-        case "power" -> result.power().toString();
-        case "price" -> result.power().toString();
+        case "power" -> result.power() != null ? result.power().toString() : "";
+        case "price" -> result.price() != null ? result.price().toString() : "";
         default -> "";
       });
     });
@@ -208,16 +226,17 @@ public class ApplianceServiceImpl implements PanelService<ApplianceViewDto, Appl
     values.keySet().stream().forEach(fieldName -> {
       values.put(fieldName, switch (fieldName) {
         case "name" -> entity.getName();
-        case "category" -> entity.getCategory().toString();
+        case "category" -> entity.getCategory() != null ? entity.getCategory().toString() : "";
         case "model" -> entity.getModel();
-        case "powerType" -> entity.getPowerType().toString();
-        case "manufacturer" -> entity.getManufacturer().getId().toString();
+        case "powerType" -> entity.getPowerType() != null ? entity.getPowerType().toString() : "";
+        case "manufacturer" -> entity.getManufacturer() != null ? entity.getManufacturer().getId().toString() : "";
         case "characteristic" -> entity.getCharacteristic();
         case "description" -> entity.getDescription();
-        case "power" -> entity.getPower().toString();
-        case "price" -> entity.getPrice().toString();
+        case "power" -> entity.getPower() != null ? entity.getPower().toString() : "";
+        case "price" -> entity.getPrice() != null ? entity.getPrice().toString() : "";
         default -> "";
       });
     });
   }
+
 }

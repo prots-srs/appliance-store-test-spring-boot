@@ -1,4 +1,4 @@
-package com.epam.rd.autocode.assessment.appliances.controller;
+package com.epam.rd.autocode.assessment.appliances.panel.controllers;
 
 import java.util.Map;
 
