@@ -9,6 +9,7 @@ import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -50,7 +51,9 @@ public class Orders {
   private Boolean approved = false;
 
   // rows
-  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "order")
+  // @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy =
+  // "order")
+  @ElementCollection
   private Set<OrderRow> orderRowSet = new HashSet<>();
 
   // public void addRow(OrderRow row) {

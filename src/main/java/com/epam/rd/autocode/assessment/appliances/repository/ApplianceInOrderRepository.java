@@ -5,7 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.epam.rd.autocode.assessment.appliances.model.OrderRow;
 
-@Repository
-public interface ApplianceInOrderRepository extends JpaRepository<OrderRow, Long> {
+// @Repository
+// public interface ApplianceInOrderRepository extends JpaRepository<OrderRow,
+// Long> {
 
-}
+// }

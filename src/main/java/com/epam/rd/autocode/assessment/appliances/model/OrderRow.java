@@ -2,6 +2,7 @@ package com.epam.rd.autocode.assessment.appliances.model;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -16,18 +17,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "order_row")
+// @Entity
+// @Table(name = "order_row")
 @Setter
 @Getter
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Embeddable
 public class OrderRow {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  // @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @ManyToOne
