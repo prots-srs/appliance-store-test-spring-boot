@@ -53,13 +53,13 @@ public class Orders {
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "order")
   private Set<OrderRow> orderRowSet = new HashSet<>();
 
-  public void addRow(OrderRow row) {
-    orderRowSet.add(row);
-    row.setOrder(this);
-  }
+  // public void addRow(OrderRow row) {
+  // orderRowSet.add(row);
+  // row.setOrder(this);
+  // }
 
-  public void removeRow(OrderRow row) {
-    orderRowSet.remove(row);
-    row.setOrder(null);
-  }
+  // public void removeRow(OrderRow row) {
+  // orderRowSet.remove(row);
+  // row.setOrder(null);
+  // }
 }

@@ -24,7 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class OrderRow {
+public class OrderItem {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class OrderRow {
   private Long number;
   private BigDecimal amount;
 
-  // @ManyToOne(fetch = FetchType.LAZY)
-  // @JoinColumn(name = "order_id")
-  // private Orders order;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "order_id")
+  private Orders order;
 }
