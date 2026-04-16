@@ -1,8 +1,6 @@
 package com.epam.rd.autocode.assessment.appliances.testServices;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Answers.*;
-
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.epam.rd.autocode.assessment.appliances.formbuilder.FormValuesDto;
 import com.epam.rd.autocode.assessment.appliances.model.Appliance;
 import com.epam.rd.autocode.assessment.appliances.model.Category;
-import com.epam.rd.autocode.assessment.appliances.model.Manufacturer;
 import com.epam.rd.autocode.assessment.appliances.model.PowerType;
 import com.epam.rd.autocode.assessment.appliances.panel.forms.ApplianceFormResult;
 import com.epam.rd.autocode.assessment.appliances.panel.table.ApplianceViewDto;

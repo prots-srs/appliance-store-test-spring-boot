@@ -66,21 +66,19 @@ public class GlobalExceptionHandlerController {
   public String noFoundError(final Model model, HttpServletRequest request) {
     model.addAttribute("message", localizeService.getMessage("error.404"));
 
-    // TODO - write to file IP:URL
-
     LOGGER.debug("GlobalException: Not found: {}", request.getRequestURL());
     return "error";
   }
 
-  @ExceptionHandler(MultipartException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public String handleMultipartException(MultipartException ex,
-      HttpServletRequest request, Model model) {
+  // @ExceptionHandler(MultipartException.class)
+  // @ResponseStatus(HttpStatus.BAD_REQUEST)
+  // public String handleMultipartException(MultipartException ex,
+  // HttpServletRequest request, Model model) {
 
-    // ex.printStackTrace();
+  // // ex.printStackTrace();
 
-    model.addAttribute("message", "Invalid multipart request: " +
-        ex.getMessage());
-    return "error";
-  }
+  // model.addAttribute("message", "Invalid multipart request: " +
+  // ex.getMessage());
+  // return "error";
+  // }
 }

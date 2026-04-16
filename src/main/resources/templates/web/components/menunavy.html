@@ -17,6 +17,16 @@
             </li>
           </ul>
         </div>
+        <div class="text-light me-3"
+             th:if="${#locale.language == 'en'}"
+             th:onclick="'sendPostRequest(\'' + @{/api/v1/locale/set/uk-UA} + '\')'">
+          ua
+        </div>
+        <div class="text-light me-3"
+             th:if="${#locale.language == 'uk'}"
+             th:onclick="'sendPostRequest(\'' + @{/api/v1/locale/set/en-US} + '\')'">
+          en
+        </div>
         <div class="text-light">
           <div th:replace="~{web/components/user_info::userinfo}"></div>
           <div th:insert="~{web/components/card_line::cardline}"></div>
