@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import org.springframework.http.MediaType;
 
 @SpringBootTest
@@ -32,6 +32,7 @@ public class TestEmployeeController {
     ResultActions request = mockMvc.perform(
         post("/panel/employees/create")
             // .with(user("admin"))
+            .with(user("earth@gmail.com").password("333").roles("EMPLOYEE"))
             .with(csrf())
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .param("name", "John")
@@ -59,6 +60,7 @@ public class TestEmployeeController {
     ResultActions request = mockMvc.perform(
         post("/panel/employees/1/edit")
             // .with(user("admin"))
+            .with(user("earth@gmail.com").password("333").roles("EMPLOYEE"))
             .with(csrf())
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .param("name", "John")

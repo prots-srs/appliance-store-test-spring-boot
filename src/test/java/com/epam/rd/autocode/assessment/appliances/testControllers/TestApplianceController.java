@@ -4,13 +4,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-
+import org.springframework.web.servlet.LocaleResolver;
 import com.epam.rd.autocode.assessment.appliances.model.Appliance;
 import com.epam.rd.autocode.assessment.appliances.model.Category;
 import com.epam.rd.autocode.assessment.appliances.model.PowerType;
 import com.epam.rd.autocode.assessment.appliances.repository.ApplianceRepository;
+import com.epam.rd.autocode.assessment.appliances.security.UserLoginService;
+import com.epam.rd.autocode.assessment.appliances.utils.LocalizeService;
 import jakarta.transaction.Transactional;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -19,8 +22,11 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -32,13 +38,27 @@ public class TestApplianceController {
   @Autowired
   private ApplianceRepository repo;
 
+  @MockitoBean
+  private LocaleResolver localeResolver;
+
+  @MockitoBean
+  private LocalizeService localizeService;
+
+  @MockitoBean
+  private PasswordEncoder passwordEncoder;
+
+  @MockitoBean
+  private UserLoginService userLoginService;
+
   @Test
+
   @Transactional
 
   void testAddNewAppliance() throws Exception {
     ResultActions request = mockMvc.perform(
         post("/panel/appliances/create")
-            // .with(user("admin"))
+            // .with(anonymous())
+            .with(user("earth@gmail.com").password("333").roles("EMPLOYEE"))
             .with(csrf())
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .param("name", "Lamp")
@@ -79,6 +99,8 @@ public class TestApplianceController {
     ResultActions request = mockMvc.perform(
         post("/panel/appliances/3/edit")
             // .with(user("admin"))
+            // .with(anonymous())
+            .with(user("earth@gmail.com").password("333").roles("EMPLOYEE"))
             .with(csrf())
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .param("name", "Lamp")
