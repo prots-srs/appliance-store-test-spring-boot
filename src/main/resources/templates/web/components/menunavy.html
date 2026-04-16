@@ -37,8 +37,27 @@
   <div th:fragment="line">
     <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
       <div class="container-fluid">
+
         <a class="navbar-brand"
            href="/">[[#{shop.name}]]</a>
+
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+            </li>
+          </ul>
+        </div>
+
+        <div class="text-light me-3"
+             th:if="${#locale.language == 'en'}"
+             th:onclick="'sendPostRequest(\'' + @{/api/v1/locale/set/uk-UA} + '\')'">
+          ua
+        </div>
+        <div class="text-light me-3"
+             th:if="${#locale.language == 'uk'}"
+             th:onclick="'sendPostRequest(\'' + @{/api/v1/locale/set/en-US} + '\')'">
+          en
+        </div>
         <div class="text-light">
           <div th:replace="~{web/components/user_info::userinfo}"></div>
         </div>
