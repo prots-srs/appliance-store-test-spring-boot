@@ -13,7 +13,7 @@ import com.epam.rd.autocode.assessment.appliances.model.Manufacturer;
 import com.epam.rd.autocode.assessment.appliances.panel.table.ManufacturerViewDto;
 import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationRequestDto;
 import com.epam.rd.autocode.assessment.appliances.panel.table.TableDto;
-import com.epam.rd.autocode.assessment.appliances.service.impl.ManufacturerServiceImpl;
+import com.epam.rd.autocode.assessment.appliances.service.ManufacturerServiceImpl;
 
 @SpringBootTest
 public class TestManufacturerService {

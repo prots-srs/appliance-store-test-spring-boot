@@ -3,7 +3,13 @@
 
 <body>
   <div th:fragment="cardline">
-    [[#{cardline.card}]]: [[${card.number}]] [[#{cardline.items}]] [[${card.amount}]]
+    <a th:href="@{/card}"
+       class="text-light"
+       th:text="#{cardline.card}"
+       th:if="${card.number > 0}"></a>
+    <span th:text="#{cardline.card}"
+          th:if="${card.number == 0}"></span>
+    : [[${card.number}]] [[#{cardline.items}]] [[${card.amount}]]
   </div>
 </body>
 

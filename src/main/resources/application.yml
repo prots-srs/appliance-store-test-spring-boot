@@ -13,6 +13,21 @@ logging:
     "[com.epam.rd.autotasks.springemployeecatalog]": DEBUG
     root: "warn"
     "[org.springframework.web]": TRACE
+    "[springframework.security]": TRACE
     # "[org.springframework.jdbc]": DEBUG
   pattern:
     console: "%d [%-5level] %c{5} %method: line:%line - %msg%n"
+server:
+  error:
+    whitelabel:
+      enabled: false
+  port: 8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    info:
+      enabled: true
+  # info.env.enabled=true

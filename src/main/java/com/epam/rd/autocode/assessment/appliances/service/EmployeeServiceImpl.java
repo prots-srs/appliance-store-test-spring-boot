@@ -1,4 +1,4 @@
-package com.epam.rd.autocode.assessment.appliances.service.impl;
+package com.epam.rd.autocode.assessment.appliances.service;
 
 import java.lang.reflect.RecordComponent;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import com.epam.rd.autocode.assessment.appliances.formbuilder.FormUtility;
 import com.epam.rd.autocode.assessment.appliances.formbuilder.FormValuesDto;
 import com.epam.rd.autocode.assessment.appliances.model.Employee;
 import com.epam.rd.autocode.assessment.appliances.panel.PanelService;
-import com.epam.rd.autocode.assessment.appliances.panel.forms.results.EmployeeFormResult;
+import com.epam.rd.autocode.assessment.appliances.panel.forms.EmployeeFormResult;
 import com.epam.rd.autocode.assessment.appliances.panel.table.EmployeeViewDto;
 import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationDto;
 import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationRequestDto;

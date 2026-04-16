@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <h1>Error</h1>
+  <p class="mb-4 mx-2"
+     th:if="${errorMessage}"
+     th:text="${errorMessage}"></p>
+  <p class="mb-4 mx-2"
+     th:if="${message}"
+     th:text="${message}"></p>
+  <p class="mb-4 mx-2"
+     th:if="${error}"
+     th:text="${error}"></p>
+  <p class="mb-4 mx-2"
+     th:if="${status}"
+     th:text="${status}"></p>
+  <p class="mb-4 mx-2"
+     th:if="${exception}"
+     th:text="${exception}"></p>
+</body>
+
+</html>

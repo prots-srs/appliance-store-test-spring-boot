@@ -1,4 +1,4 @@
-package com.epam.rd.autocode.assessment.appliances.service.impl;
+package com.epam.rd.autocode.assessment.appliances.service;
 
 import java.lang.reflect.RecordComponent;
 import java.math.BigDecimal;
@@ -21,7 +21,7 @@ import com.epam.rd.autocode.assessment.appliances.model.Appliance;
 import com.epam.rd.autocode.assessment.appliances.model.Manufacturer;
 import com.epam.rd.autocode.assessment.appliances.model.OrderRow;
 import com.epam.rd.autocode.assessment.appliances.panel.PanelService;
-import com.epam.rd.autocode.assessment.appliances.panel.forms.results.ApplianceFormResult;
+import com.epam.rd.autocode.assessment.appliances.panel.forms.ApplianceFormResult;
 import com.epam.rd.autocode.assessment.appliances.panel.table.ApplianceViewDto;
 import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationDto;
 import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationRequestDto;

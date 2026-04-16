@@ -42,27 +42,26 @@
         <table class="table table-hover">
           <thead>
             <tr class="table-light">
-              <th><a
-                   th:href="@{{link}(sort='id', link=${currentPage}, page=${data.pagination.currentPage}, size=${data.pagination.pageSize})}">[[#{header.id}]]</a>
-              </th>
-              <th><a
-                   th:href="@{{link}(sort='name', link=${currentPage}, page=${data.pagination.currentPage}, size=${data.pagination.pageSize})}">[[#{header.name}]]</a>
-              </th>
+              <th>[[#{header.id}]]</th>
+              <th>[[#{header.clientEmail}]]</th>
+              <th>[[#{header.employeeEmail}]]</th>
+              <th>[[#{header.amount}]]</th>
+              <th>[[#{header.approved}]]</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr th:each="manufacturer: ${data.list}">
-              <td>
-                <a th:href="@{/panel/manufacturers/{id}/edit(id=${manufacturer.id})}"
-                   th:text="${manufacturer.id}" />
-              </td>
-              <td th:text="${manufacturer.name}" />
+            <tr th:each="order: ${data.list}">
+              <td>[[${order.id}]]</td>
+              <td>[[${order.clientEmail}]]</td>
+              <td>[[${order.employeeEmail}]]</td>
+              <td>[[${order.amount}]]</td>
+              <td>[[${order.approved}]]</td>
               <td>
                 <button type="button"
                         class="btn btn-outline-danger btn-sm"
-                        th:onclick="'sendDeleteRequest(\'' + @{/panel/manufacturers/{id}(id=${manufacturer.id})} + '\')'">
-                  [[#{btn.delete}]]
+                        th:onclick="'_sendDeleteRequest(\'' + @{/panel/manufacturers/{id}(id=${manufacturer.id})} + '\')'">
+                  [[#{btn.approve}]]
                 </button>
               </td>
             </tr>
@@ -74,9 +73,6 @@
           <div th:replace="~{panel/components/pagination::pagination}">
           </div>
         </div>
-        <a th:href="@{/panel/manufacturers/create}"
-           class="btn btn-primary"
-           th:text="#{btn.new}"></a>
 
       </div>
     </div>

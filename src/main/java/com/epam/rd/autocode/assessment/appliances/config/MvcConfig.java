@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.LocaleResolver;
 
 @Configuration
 @EnableWebMvc
-public class MainConfig implements WebMvcConfigurer {
+public class MvcConfig implements WebMvcConfigurer {
   @Bean
   LocaleResolver localeResolver() {
     SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
@@ -39,13 +40,12 @@ public class MainConfig implements WebMvcConfigurer {
     registry.addInterceptor(siteLocaleChangeInterceptor());
   }
 
-  // public void addViewControllers(ViewControllerRegistry registry) {
-  // if (registry == null) {
-  // throw new IllegalArgumentException("ResourceHandlerRegistry must not be
-  // null");
-  // }
-  // registry.addViewController("/login").setViewName("login");
-  // }
+  public void addViewControllers(ViewControllerRegistry registry) {
+    if (registry == null) {
+      throw new IllegalArgumentException("ResourceHandlerRegistry must not be null");
+    }
+    registry.addViewController("/login").setViewName("login");
+  }
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -57,6 +57,7 @@ public class MainConfig implements WebMvcConfigurer {
 
     registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
     registry.addResourceHandler("/fonts/**").addResourceLocations("classpath:/static/fonts/");
+    registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
     registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath:/static/");
   }
 }

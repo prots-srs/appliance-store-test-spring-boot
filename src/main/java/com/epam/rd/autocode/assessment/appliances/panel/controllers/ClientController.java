@@ -16,10 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.epam.rd.autocode.assessment.appliances.panel.PanelController;
-import com.epam.rd.autocode.assessment.appliances.panel.forms.results.ClientFormResult;
+import com.epam.rd.autocode.assessment.appliances.panel.forms.ClientFormResult;
 import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationRequestDto;
-import com.epam.rd.autocode.assessment.appliances.service.impl.ClientServiceImpl;
-
+import com.epam.rd.autocode.assessment.appliances.service.ClientServiceImpl;
 import jakarta.validation.Valid;
 
 @Controller
@@ -38,9 +37,7 @@ public class ClientController implements PanelController<ClientFormResult> {
 
   @ModelAttribute
   public void commonModelAttribute(Model model) {
-    // page bundle
     model.addAttribute("currentPage", DEFAULT_PATH);
-    // model.addAttribute("currentUser", accountService.getCurrentUserForView());
   }
 
   @Override

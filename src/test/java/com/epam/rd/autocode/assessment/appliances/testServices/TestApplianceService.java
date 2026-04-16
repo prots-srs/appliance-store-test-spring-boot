@@ -13,13 +13,12 @@ import com.epam.rd.autocode.assessment.appliances.model.Appliance;
 import com.epam.rd.autocode.assessment.appliances.model.Category;
 import com.epam.rd.autocode.assessment.appliances.model.Manufacturer;
 import com.epam.rd.autocode.assessment.appliances.model.PowerType;
-import com.epam.rd.autocode.assessment.appliances.panel.forms.results.ApplianceFormResult;
+import com.epam.rd.autocode.assessment.appliances.panel.forms.ApplianceFormResult;
 import com.epam.rd.autocode.assessment.appliances.panel.table.ApplianceViewDto;
 import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationRequestDto;
 import com.epam.rd.autocode.assessment.appliances.panel.table.TableDto;
 import com.epam.rd.autocode.assessment.appliances.repository.ApplianceRepository;
-import com.epam.rd.autocode.assessment.appliances.service.impl.ApplianceServiceImpl;
-
+import com.epam.rd.autocode.assessment.appliances.service.ApplianceServiceImpl;
 import jakarta.transaction.Transactional;
 
 @SpringBootTest

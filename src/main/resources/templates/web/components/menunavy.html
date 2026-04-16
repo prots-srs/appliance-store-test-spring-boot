@@ -18,6 +18,7 @@
           </ul>
         </div>
         <div class="text-light">
+          <div th:replace="~{web/components/user_info::userinfo}"></div>
           <div th:insert="~{web/components/card_line::cardline}"></div>
         </div>
       </div>
@@ -27,7 +28,10 @@
     <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
       <div class="container-fluid">
         <a class="navbar-brand"
-           href="#">#{mainpage.title}</a>
+           href="/">[[#{shop.name}]]</a>
+        <div class="text-light">
+          <div th:replace="~{web/components/user_info::userinfo}"></div>
+        </div>
       </div>
     </nav>
   </div>

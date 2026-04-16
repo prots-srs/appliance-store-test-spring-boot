@@ -50,19 +50,6 @@ public class Orders {
 
   private Boolean approved = false;
 
-  // rows
-  // @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy =
-  // "order")
   @ElementCollection
   private Set<OrderRow> orderRowSet = new HashSet<>();
-
-  // public void addRow(OrderRow row) {
-  // orderRowSet.add(row);
-  // row.setOrder(this);
-  // }
-
-  // public void removeRow(OrderRow row) {
-  // orderRowSet.remove(row);
-  // row.setOrder(null);
-  // }
 }

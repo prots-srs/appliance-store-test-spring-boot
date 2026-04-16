@@ -20,11 +20,10 @@ import com.epam.rd.autocode.assessment.appliances.formbuilder.FormValuesDto;
 import com.epam.rd.autocode.assessment.appliances.model.Category;
 import com.epam.rd.autocode.assessment.appliances.model.PowerType;
 import com.epam.rd.autocode.assessment.appliances.panel.PanelController;
-import com.epam.rd.autocode.assessment.appliances.panel.forms.results.ApplianceFormResult;
+import com.epam.rd.autocode.assessment.appliances.panel.forms.ApplianceFormResult;
 import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationRequestDto;
-import com.epam.rd.autocode.assessment.appliances.service.impl.ApplianceServiceImpl;
-import com.epam.rd.autocode.assessment.appliances.service.impl.ManufacturerServiceImpl;
-
+import com.epam.rd.autocode.assessment.appliances.service.ApplianceServiceImpl;
+import com.epam.rd.autocode.assessment.appliances.service.ManufacturerServiceImpl;
 import jakarta.validation.Valid;
 
 @Controller
@@ -46,9 +45,7 @@ public class ApplianceController implements PanelController<ApplianceFormResult>
 
   @ModelAttribute
   public void commonModelAttribute(Model model) {
-    // page bundle
     model.addAttribute("currentPage", DEFAULT_PATH);
-    // model.addAttribute("currentUser", accountService.getCurrentUserForView());
   }
 
   @Override

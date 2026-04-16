@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <div th:fragment="userinfo">
+
+    <div th:if="${user}">
+      <span>[[${user}]]</span>
+
+      <form th:action="@{/logout}"
+            method="post"
+            style="display:inline-block;">
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}" />
+        <button type="submit"
+                class="btn btn-secondary btn-sm">
+          [[#{user.signout}]]
+        </button>
+      </form>
+
+    </div>
+    <a th:href="@{/login}"
+       th:if="${user == null}"
+       class="text-light">[[#{user.signin}]]</a>
+</body>
+
+</html>

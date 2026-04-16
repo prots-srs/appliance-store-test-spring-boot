@@ -1,4 +1,4 @@
-package com.epam.rd.autocode.assessment.appliances.panel.forms.results;
+package com.epam.rd.autocode.assessment.appliances.panel.forms;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

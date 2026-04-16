@@ -17,112 +17,81 @@
         th:href="@{/css/main.css}" />
   <link rel="stylesheet"
         th:href="@{/fonts/boxicons.css}" />
+  <script th:src="@{/js/requests.js}"></script>
+  <meta name="csrf-header"
+        th:content="${_csrf.headerName}" />
+  <meta name="csrf-token"
+        th:content="${_csrf.token}" />
+
 
   <title th:text="#{clients.header.list}" />
 </head>
 
 <body>
   <div th:insert="~{panel/components/menunavy::navy}"></div>
-  <h1 th:text="#{clients.header.list}" />
 
-  <div id="warning"
-       class="alert alert-danger"
-       th:classappend="${warning != null and warning != ''} ? '' : 'd-none'"
-       role="note"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1 th:text="#{clients.header.list}" />
 
-  <table class="table table-hover">
-    <thead>
-      <tr class="table-light">
-        <th><a
-             th:href="@{{link}(sort='id', link=${currentPage}, page=${data.pagination.currentPage}, size=${data.pagination.pageSize})}">[[#{header.id}]]</a>
-        </th>
-        <th><a
-             th:href="@{{link}(sort='name', link=${currentPage}, page=${data.pagination.currentPage}, size=${data.pagination.pageSize})}">[[#{header.name}]]</a>
-        </th>
-        <th><a
-             th:href="@{{link}(sort='email', link=${currentPage}, page=${data.pagination.currentPage}, size=${data.pagination.pageSize})}">[[#{header.email}]]</a>
-        </th>
-        <th><a
-             th:href="@{{link}(sort='card', link=${currentPage}, page=${data.pagination.currentPage}, size=${data.pagination.pageSize})}">[[#{header.card}]]</a>
-        </th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr th:each="client: ${data.list}">
-        <td>
-          <a th:href="@{/panel/clients/{id}/edit(id=${client.id})}"
-             th:text="${client.id}" />
-        </td>
-        <td th:text="${client.name}" />
-        <td th:text="${client.email}" />
-        <td th:text="${client.card}" />
-        <td>
-          <button type="button"
-                  class="btn btn-outline-danger btn-sm"
-                  th:onclick="'sendDeleteRequest(\'' + @{/panel/clients/{id}(id=${client.id})} + '\')'">
-            [[#{btn.delete}]]
-          </button>
-        </td>
-      </tr>
+        <div id="warning"
+             class="alert alert-danger"
+             th:classappend="${warning != null and warning != ''} ? '' : 'd-none'"
+             role="note"></div>
 
-    </tbody>
-  </table>
-  <div th:if="${data.pagination.totalPages > 1}"
-       class="m-4">
-    <div th:replace="~{panel/components/pagination::pagination}">
+        <table class="table table-hover">
+          <thead>
+            <tr class="table-light">
+              <th><a
+                   th:href="@{{link}(sort='id', link=${currentPage}, page=${data.pagination.currentPage}, size=${data.pagination.pageSize})}">[[#{header.id}]]</a>
+              </th>
+              <th><a
+                   th:href="@{{link}(sort='name', link=${currentPage}, page=${data.pagination.currentPage}, size=${data.pagination.pageSize})}">[[#{header.name}]]</a>
+              </th>
+              <th><a
+                   th:href="@{{link}(sort='email', link=${currentPage}, page=${data.pagination.currentPage}, size=${data.pagination.pageSize})}">[[#{header.email}]]</a>
+              </th>
+              <th><a
+                   th:href="@{{link}(sort='card', link=${currentPage}, page=${data.pagination.currentPage}, size=${data.pagination.pageSize})}">[[#{header.card}]]</a>
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="client: ${data.list}">
+              <td>
+                <a th:href="@{/panel/clients/{id}/edit(id=${client.id})}"
+                   th:text="${client.id}" />
+              </td>
+              <td th:text="${client.name}" />
+              <td th:text="${client.email}" />
+              <td th:text="${client.card}" />
+              <td>
+                <button type="button"
+                        class="btn btn-outline-danger btn-sm"
+                        th:onclick="'sendDeleteRequest(\'' + @{/panel/clients/{id}(id=${client.id})} + '\')'">
+                  [[#{btn.delete}]]
+                </button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+        <div th:if="${data.pagination.totalPages > 1}"
+             class="m-4">
+          <div th:replace="~{panel/components/pagination::pagination}">
+          </div>
+        </div>
+        <a th:href="@{/panel/clients/create}"
+           class="btn btn-primary"
+           th:text="#{btn.new}"></a>
+
+      </div>
     </div>
   </div>
-  <a th:href="@{/panel/clients/create}"
-     class="btn btn-primary"
-     th:text="#{btn.new}"></a>
+
   <div th:insert="~{footer::footer}"></div>
-
-  <script th:inline="javascript">
-    async function sendDeleteRequest(path) {
-      try {
-        const response = await fetch(path, {
-          method: "DELETE",
-          body: new FormData(),
-          headers: {
-            "[(${_csrf.headerName})]": "[(${_csrf.token})]"
-          }
-        });
-
-        if (!response.ok) {
-          const text = await response.text();
-
-          let message;
-          try {
-            message = JSON.parse(text);
-          } catch (e) {
-            console.log("Not JSON error body");
-            return;
-          }
-
-          if (message.warning) {
-            showWarning(message.warning);
-          }
-
-          return;
-        }
-
-        // Success
-        location.reload(true);
-
-      } catch (error) {
-        console.error("Network error:", error);
-      }
-    }
-
-    function showWarning(warning) {
-      let el = document.getElementById("warning");
-      if (el) {
-        el.classList.remove('d-none');
-        el.innerHTML = warning;
-      }
-    }
-  </script>
 </body>
 
 </html>

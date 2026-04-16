@@ -17,25 +17,25 @@ import com.epam.rd.autocode.assessment.appliances.repository.ApplianceRepository
 
 @SpringBootTest
 
-public class TestOrderRowRepo {
+public class TestOrderRepo {
 
   // @Autowired
   // private ApplianceInOrderRepository repo;
 
-  @Autowired
-  private ApplianceRepository appRepo;
+  // @Autowired
+  // private ApplianceRepository appRepo;
 
-  private OrderRow orderRowEntity;
+  // private OrderRow orderRowEntity;
 
-  @BeforeEach
-  void init() {
-    orderRowEntity = new OrderRow();
+  // @BeforeEach
+  // void init() {
+  // orderRowEntity = new OrderRow();
 
-    Appliance appliance = appRepo.getReferenceById(2L);
-    orderRowEntity.setAppliance(appliance);
-    orderRowEntity.setNumber(7L);
-    orderRowEntity.setAmount(new BigDecimal("23.10"));
-  }
+  // Appliance appliance = appRepo.getReferenceById(2L);
+  // orderRowEntity.setAppliance(appliance);
+  // orderRowEntity.setNumber(7L);
+  // orderRowEntity.setAmount(new BigDecimal("23.10"));
+  // }
 
   // @Test
   // void testCreateEntity() {
