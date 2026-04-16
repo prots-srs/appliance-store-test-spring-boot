@@ -41,9 +41,6 @@ public class TestEmployeeController {
         .andExpect(status().is3xxRedirection())
         .andExpect(redirectedUrl("/panel/employees/5/edit"));
 
-    // System.out.println("re_sponse:" +
-    // request.andReturn().getResponse().getHeader("location"));
-
     String path = request.andReturn().getResponse().getHeader("location");
     Long id = Long.valueOf(path.split("/")[3]);
 
@@ -70,9 +67,6 @@ public class TestEmployeeController {
             .param("department", "sociotropic"))
         .andExpect(status().is3xxRedirection())
         .andExpect(redirectedUrl("/panel/employees/1/edit"));
-
-    // System.out.println("re_sponse:" +
-    // request.andReturn().getResponse().getHeader("location"));
 
     String path = request.andReturn().getResponse().getHeader("location");
     Long id = Long.valueOf(path.split("/")[3]);

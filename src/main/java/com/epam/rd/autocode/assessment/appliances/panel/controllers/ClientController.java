@@ -114,7 +114,6 @@ public class ClientController implements PanelController<ClientFormResult> {
   public String update(@PathVariable Long id, Model model) {
 
     var form = service.getForm(id, null, null);
-    System.out.println("form:" + form);
 
     model.addAttribute("data", form);
     model.addAttribute("action", DEFAULT_PATH + "/" + id + "/edit");

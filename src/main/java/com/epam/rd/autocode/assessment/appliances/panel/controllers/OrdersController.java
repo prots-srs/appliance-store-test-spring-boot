@@ -1,7 +1,6 @@
 package com.epam.rd.autocode.assessment.appliances.panel.controllers;
 
 import com.epam.rd.autocode.assessment.appliances.panel.table.PaginationRequestDto;
-import com.epam.rd.autocode.assessment.appliances.service.ManufacturerServiceImpl;
 import com.epam.rd.autocode.assessment.appliances.service.OrderServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

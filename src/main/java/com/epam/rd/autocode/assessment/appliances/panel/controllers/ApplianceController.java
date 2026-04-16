@@ -100,11 +100,7 @@ public class ApplianceController implements PanelController<ApplianceFormResult>
   public String processCreate(final @Valid @ModelAttribute("item") ApplianceFormResult item, BindingResult result,
       Model model) {
 
-    // System.out.println("item create:" + item);
-
     if (result.hasErrors()) {
-
-      // model.addAttribute("warning", result.getAllErrors());
 
       model.addAttribute("data", service.getForm(null, item, result.getFieldErrors()));
       model.addAttribute("action", DEFAULT_PATH + "/create");
@@ -128,7 +124,6 @@ public class ApplianceController implements PanelController<ApplianceFormResult>
   public String update(@PathVariable Long id, Model model) {
 
     var form = service.getForm(id, null, null);
-    // System.out.println("form:" + form);
 
     model.addAttribute("data", form);
     model.addAttribute("action", DEFAULT_PATH + "/" + id + "/edit");
@@ -145,16 +140,11 @@ public class ApplianceController implements PanelController<ApplianceFormResult>
       @PathVariable("id") Long id,
       Model model) {
 
-    // System.out.println("item update:" + item);
     if (result.hasErrors()) {
-
-      // model.addAttribute("warning", result.getAllErrors());
 
       FormValuesDto formResult = service.getForm(id, item, result.getFieldErrors());
       model.addAttribute("data", formResult);
       model.addAttribute("action", DEFAULT_PATH + "/" + id + "/edit");
-
-      // System.out.println("formResult:" + formResult);
 
       utilForm(model);
 

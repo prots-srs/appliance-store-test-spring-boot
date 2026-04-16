@@ -25,9 +25,6 @@ public class TestManufacturerService {
   void test_fetch_page_service_manufacturer() {
     TableDto<ManufacturerViewDto> m = manufacturerService.getTable(new PaginationRequestDto(0, 5, null));
 
-    // m.list().forEach(d -> System.out.println("d:" + d.id() + " " + d.name()));
-    // System.out.println("p:" + m.pagination().toString());
-
     assertEquals(m.list().size(), 5);
   }
 
@@ -46,7 +43,6 @@ public class TestManufacturerService {
   void testCreateExistForm() {
     FormValuesDto values = manufacturerService.getForm(1L, null, null);
 
-    // System.out.println("z:" + values);
     assertNotNull(values);
     assertEquals(values.id(), 1L);
     assertFalse(values.isNew());

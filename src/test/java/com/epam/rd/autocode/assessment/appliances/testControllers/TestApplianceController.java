@@ -53,9 +53,6 @@ public class TestApplianceController {
         .andExpect(status().is3xxRedirection())
         .andExpect(redirectedUrl("/panel/appliances/8/edit"));
 
-    // System.out.println("re_sponse:" +
-    // request.andReturn().getResponse().getHeader("location"));
-
     String path = request.andReturn().getResponse().getHeader("location");
     assertNotNull(path);
     Long id = Long.valueOf(path.split("/")[3]);
@@ -95,9 +92,6 @@ public class TestApplianceController {
             .param("price", "4.05"))
         .andExpect(status().is3xxRedirection())
         .andExpect(redirectedUrl("/panel/appliances/3/edit"));
-
-    // System.out.println("re_sponse:" +
-    // request.andReturn().getResponse().getHeader("location"));
 
     String path = request.andReturn().getResponse().getHeader("location");
     assertNotNull(path);

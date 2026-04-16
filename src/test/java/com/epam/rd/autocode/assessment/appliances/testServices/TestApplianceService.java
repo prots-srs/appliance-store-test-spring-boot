@@ -33,9 +33,6 @@ public class TestApplianceService {
   void testFetchPageService() {
     TableDto<ApplianceViewDto> m = applianceService.getTable(new PaginationRequestDto(0, 5, null));
 
-    // m.list().forEach(d -> System.out.println("d:" + d.id() + " " + d.name()));
-    // System.out.println("p:" + m.pagination().toString());
-
     assertEquals(m.list().size(), 5);
   }
 
@@ -54,7 +51,6 @@ public class TestApplianceService {
   void testGetExistFormValues() {
     FormValuesDto values = applianceService.getForm(2L, null, null);
 
-    // System.out.println("z:" + values);
     assertNotNull(values);
     assertEquals(values.id(), 2L);
     assertFalse(values.isNew());

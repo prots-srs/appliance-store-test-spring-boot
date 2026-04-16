@@ -42,7 +42,6 @@ public class UserLoginService implements UserDetailsService {
 
     List<Employee> employee = employeeRepository.findByEmailIgnoreCase(email);
 
-    employee.forEach(e -> System.out.println("employee:" + e.getEmail() + "-" + e.getName()));
     if (employee.size() > 0) {
 
       if (employee.get(0).getDepartment().equals("salle")) {

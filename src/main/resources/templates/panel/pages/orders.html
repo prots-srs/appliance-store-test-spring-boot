@@ -60,7 +60,7 @@
               <td>
                 <button type="button"
                         class="btn btn-outline-danger btn-sm"
-                        th:onclick="'_sendDeleteRequest(\'' + @{/panel/manufacturers/{id}(id=${manufacturer.id})} + '\')'">
+                        th:onclick="'sendPostRequest(\'' + @{/api/v1/cart/approve/{id}(id=${order.id})} + '\')'">
                   [[#{btn.approve}]]
                 </button>
               </td>

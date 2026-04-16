@@ -4,29 +4,29 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.epam.rd.autocode.assessment.appliances.components.CartSessionImpl;
-import com.epam.rd.autocode.assessment.appliances.exceptions.InvalidProcessOrders;
-import com.epam.rd.autocode.assessment.appliances.repository.ClientRepository;
-import java.net.URI;
+import com.epam.rd.autocode.assessment.appliances.service.OrderServiceImpl;
 
 @RestController
 @RequestMapping("/api/v1/cart/")
 public class ApiCartController {
 
   private CartSessionImpl cartService;
+  private OrderServiceImpl orderService;
 
-  public ApiCartController(CartSessionImpl cartService) {
+  public ApiCartController(CartSessionImpl cartService,
+      OrderServiceImpl orderService) {
     this.cartService = cartService;
+    this.orderService = orderService;
   }
 
   @PostMapping("add/{id}")
@@ -109,5 +109,20 @@ public class ApiCartController {
         .status(HttpStatus.BAD_REQUEST)
         .body(Map.of("warning", "User isn't authenticated"));
 
+  }
+
+  @PostMapping("approve/{id}")
+  @PreAuthorize("hasRole('EMPLOYEE')")
+  public ResponseEntity<?> approveOrder(@PathVariable Long id) {
+
+    try {
+      orderService.approveOrder(id);
+      return ResponseEntity.noContent().build();
+
+    } catch (Exception e) {
+      return ResponseEntity
+          .status(HttpStatus.NOT_FOUND)
+          .body(Map.of("warning", e.getMessage()));
+    }
   }
 }
